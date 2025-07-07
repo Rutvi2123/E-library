@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Book Library</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            margin-top: 10px;
+            background-image: url('img/ebook.jpg');
+            background-size: cover;
+            ;
+               
+        }
+        h1{
+           text-align: center;
+           margin-top: -95px;
+            font-size: 65px;
+            font-family: 'Papyrus';
+        }
+        .user-logo {
+            position: relative;
+            top: 20px;
+            width: 200px; 
+          
+        }
+
+        .user1-logo {
+            position: relative;
+            top: 20px;
+            left: 1300px;
+            width: 200px; 
+            
+        }
+
+        #searchInput, #filterDropdown {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        #bookList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .bookItem {
+            border: 1px solid #bab2b2;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="body-background">
+<img src="img/book.png" alt="Lock Logo" class="user-logo">
+<img src="img/book.png" alt="Lock Logo" class="user1-logo">
+    <h1>E-Book Library</h1>
+    <iframe src="view.php?id=1" width="800" height="600" frameborder="0"></iframe>
+    <input type="text" id="searchInput" placeholder="Search by title">
+    <select id="filterDropdown">
+        <option value="all">All Genres</option>
+        <option value="Fiction">Fiction</option>
+        <option value="Non-Fiction">Non-Fiction</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Thriller">Thriller</option>
+        <option value="Biography">Biographies</option>
+        <option value="Academic">Academic</option>
+        <option value="Horror">Horror</option>
+        <option value="Action & Adventure">Action & Adventure</option>
+        <option value="Novels">Novels</option>
+        <option value="Romance">Romance</option>
+        <!-- Add more genres as needed -->
+    </select>
+
+    <ul id="bookList">
+        <!-- Book items will be dynamically added here using JavaScript -->
+    </ul>
+
+    <script>
+        // Sample book data (replace it with your actual data)
+        const books = [
+            { title: 'Book 1', genre: 'Fiction' },
+            { title: 'Book 2', genre: 'Non-Fiction' },
+            { title: 'Book 3', genre: 'Fantasy' },
+            { title: 'Book 4', genre: 'Thriller' },
+            { title: 'Book 5', genre: 'Biography' },
+            { title: 'Book 6', genre: 'Academic' },
+            { title: 'Book 7', genre: 'Horror' },
+            { title: 'Book 8', genre:  'Action & Adventure' },
+            { title: 'Book 9', genre:  'Novels' },
+            { title: 'Book 10', genre: 'Romance' },
+            // Add more book entries as needed
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const filterDropdown = document.getElementById('filterDropdown');
+        const bookList = document.getElementById('bookList');
+
+        function displayBooks() {
+            // Clear existing book list
+            bookList.innerHTML = '';
+
+            // Get filter values
+            const searchText = searchInput.value.toLowerCase();
+            const selectedGenre = filterDropdown.value;
+
+            // Filter and display books
+            books.forEach(book => {
+                if ((selectedGenre === 'all' || book.genre === selectedGenre) &&
+                    (searchText === '' || book.title.toLowerCase().includes(searchText))) {
+                    const li = document.createElement('li');
+                    li.className = 'bookItem';
+                    li.textContent = `${book.title} - Genre: ${book.genre}`;
+                    bookList.appendChild(li);
+                }
+            });
+        }
+
+        // Initial display
+        displayBooks();
+
+        // Event listeners for input changes
+        searchInput.addEventListener('input', displayBooks);
+        filterDropdown.addEventListener('change', displayBooks);
+    </script>
+
+</body>
+</html>
